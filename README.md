@@ -66,15 +66,45 @@ This application serves as a demonstration of technical skill and a basis for fu
 
 ##Outputs
 
+Username Setting Page shows First
+
 <img width="1004" height="615" alt="Screenshot 2026-01-03 171356" src="https://github.com/user-attachments/assets/31b5b195-dacc-425b-84b4-e3b86b64a861" />
+
+
+After Entering Username
+
 <img width="1804" height="869" alt="Screenshot 2026-01-03 171418" src="https://github.com/user-attachments/assets/188144fe-9508-49cd-9fcc-04554f1c3fe2" />
+
+
+Creating a room with name GDSC inductions and duration of 2 minutes
+
 <img width="1628" height="921" alt="Screenshot 2026-01-03 171522" src="https://github.com/user-attachments/assets/d008e3c3-c2aa-4e65-be06-43b014eb55da" />
+
+
+Room shows up in the available Rooms list
+
 <img width="1686" height="859" alt="Screenshot 2026-01-03 171537" src="https://github.com/user-attachments/assets/9f401458-3932-4704-a8b5-383e2546d9ca" />
+
+
+Messages Sent by each person on their tab.
+
 <img width="1641" height="899" alt="Screenshot 2026-01-03 171633" src="https://github.com/user-attachments/assets/e09af357-658a-4fdc-9199-af8bfe4c80e1" />
+
+
 <img width="1654" height="909" alt="Screenshot 2026-01-03 171642" src="https://github.com/user-attachments/assets/5df9a08e-db25-471c-a1fa-437e9b03ba76" />
+
+
 <img width="1708" height="912" alt="Screenshot 2026-01-03 171655" src="https://github.com/user-attachments/assets/7b9b2b83-33c4-491c-bd34-c4e58750c1c1" />
+
+
+when the timer runs out
+
 <img width="1750" height="905" alt="Screenshot 2026-01-03 171720" src="https://github.com/user-attachments/assets/0eece707-7f4b-40d5-aad2-283651851e3e" />
+
+
+What happens in terminal
 <img width="843" height="471" alt="Screenshot 2026-01-03 171827" src="https://github.com/user-attachments/assets/5742bb9d-04b9-4f82-bc92-f620d0a3970f" />
+
 
 
 
