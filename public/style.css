@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+#messages {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+#messages li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#messageInput {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#sendBtn {
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#sendBtn:hover {
+    background: #0056b3;
+}

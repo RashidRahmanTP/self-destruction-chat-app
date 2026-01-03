@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Self-Destructing Chat Rooms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        /* Username Screen */
+        #usernameScreen {
+            background: white;
+            border-radius: 10px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #usernameScreen h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+
+        #usernameScreen input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #usernameScreen button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        /* Lobby Screen */
+        #lobby {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .user-info {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .create-room-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .create-room-section h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .rooms-list-section h2 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        #roomsList {
+            list-style: none;
+        }
+
+        .room-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .room-info {
+            flex: 1;
+        }
+
+        .room-name {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .room-details {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .timer {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Chat Room Screen */
+        #chatRoom {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .room-title {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        #roomTimer {
+            font-size: 18px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        #leaveRoomBtn {
+            background: #e74c3c;
+        }
+
+        #leaveRoomBtn:hover {
+            background: #c0392b;
+        }
+
+        #messages {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+
+        /* Message Styles - WhatsApp-like */
+        .message-wrapper {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .message-wrapper.own {
+            justify-content: flex-end;
+        }
+
+        .message-wrapper.other {
+            justify-content: flex-start;
+        }
+
+        .message {
+            max-width: 60%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .message-wrapper.own .message {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message-wrapper.other .message {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #ddd;
+        }
+
+        .message-sender {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        .message-wrapper.own .message-sender {
+            color: #e0e7ff;
+        }
+
+        .message-wrapper.other .message-sender {
+            color: #667eea;
+        }
+
+        .message-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-time {
+            font-size: 11px;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        .system-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            text-align: center;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+        }
+
+        .expired-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Self-Destructing Chat Rooms!</h1>
+
+        <!-- Username Screen -->
+        <div id="usernameScreen">
+            <h2>Welcome! 👋</h2>
+            <p style="color: #666; margin-bottom: 20px;">Enter your name to get started</p>
+            <input type="text" id="usernameInput" placeholder="Enter your name..." maxlength="20" autofocus>
+            <button id="setUsernameBtn">Continue</button>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobby">
+            <div class="user-info">
+                Logged in as: <strong id="displayUsername"></strong>
+            </div>
+
+            <!-- Create Room Section -->
+            <div class="create-room-section">
+                <h2>Create New Room</h2>
+                <div class="form-group">
+                    <label for="roomNameInput">Room Name:</label>
+                    <input type="text" id="roomNameInput" placeholder="Enter room name...">
+                </div>
+                <div class="form-group">
+                    <label for="durationInput">Duration (minutes):</label>
+                    <input type="number" id="durationInput" min="1" max="60" value="5">
+                </div>
+                <button id="createRoomBtn">Create Room</button>
+            </div>
+
+            <!-- Available Rooms List -->
+            <div class="rooms-list-section">
+                <h2>Available Rooms</h2>
+                <ul id="roomsList">
+                    <li style="color: #999; text-align: center; padding: 20px;">
+                        No active rooms. Create one!
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Chat Room Screen -->
+        <div id="chatRoom">
+            <div class="room-header">
+                <div>
+                    <div class="room-title" id="currentRoomName">Room Name</div>
+                    <div id="roomTimer">Time left: 5:00</div>
+                </div>
+                <button id="leaveRoomBtn">Leave Room</button>
+            </div>
+
+            <div id="messages"></div>
+
+            <div class="chat-input-area">
+                <input type="text" id="messageInput" placeholder="Type your message..." autocomplete="off">
+                <button id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPORTANT: Scripts MUST be at the END of body, AFTER all HTML elements -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>
